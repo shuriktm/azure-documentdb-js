@@ -1,0 +1,1 @@
+The source code & package for the Azure DocumentDB JavaScript driver will be published shortly.
