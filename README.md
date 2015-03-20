@@ -46,7 +46,7 @@ This SDK supports only collection level operations.
     var host = "https://bloopbloop.documents.azure.com:443"; // Add your host
 
     var resourceTokens = {};
-    // Add the collectionId and resourceToken for read/write on the collection
+    // Add the collection._rid and resourceToken (obtained from some middle tier service) for read/write on the collection
     resourceTokens["Pa0wAKPRZQA="] = "type=resource&ver=1&sig=WaOXNCJaZ7Z7obf74i48Yg==;Dbb5bXDnm5ou0rpAUyifsFR5VNIsfSTeuad81P7zC7ytJtSwLCLnw9ne99vuIH8/giBsYIrqtXE5PYDs2idLfdJ4+K3bfT8BJgWqdgIuIEE/nvVpdEQ85y1azPXO7F+wXwBzK4eH2wQ0yMudy+petUdnN1GR3VJNsuNTZ1j+mnLLT/FLpFjWLVyI2dTLe7KHM0FvnczVZmT9wGJV8rUMjgjV9oG552DAev9exPGnj4E=;"; 
 
     var collectionUrl = "dbs/Pa0wAA==/colls/Pa0wAKPRZQA=/"; // Add the collection self-link
