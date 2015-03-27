@@ -112,7 +112,10 @@ function deletePermissionIfExists(callback) {
 }
 
 function createPermission(callback) {
-    client.createPermission(cachedUser._self, { id: permissionId, permissionMode: DocumentBase.PermissionMode.All, resource: cachedCollection._self }, function (error, permission) {
+    client.createPermission(cachedUser._self, {
+        id: permissionId,
+        permissionMode: DocumentBase.PermissionMode.All,
+        resource: cachedCollection._self}, function (error, permission) {
         if (error) {
             console.log('failed to create permission');
             console.log(error);
