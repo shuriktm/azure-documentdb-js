@@ -260,6 +260,10 @@ var getContext = (function docDbSetupContextObject() {
         var methodNames = {
             getCollection: 'getCollection',
         };
+        var resourceTypes = {
+            document: true,
+            attachment: false
+        };
         //---------------------------------------------------------------------------------------------------       
         //The new Document and Attachment interface in server.
         function DocDbCollection(collectionObjRawIn) {
@@ -417,10 +421,12 @@ var getContext = (function docDbSetupContextObject() {
                 }
 
                 var ifNoneMatch = options.ifNoneMatch || '';
-                return collectionObjRaw.read(collectionId, documentId, ifNoneMatch, function (err, response) {
+                return collectionObjRaw.read(resourceTypes.document, collectionId, documentId, ifNoneMatch, function (err, response) {
                     if (callback) {
                         if (err) {
                             callback(err);
+                        } else if (response.options.notModified) {
+                            callback(undefined, undefined, response.options);
                         } else {
                             callback(undefined, JSON.parse(response.body), response.options);
                         }
@@ -460,7 +466,7 @@ var getContext = (function docDbSetupContextObject() {
 
                 var pageSize = options.pageSize || 100;
                 var requestContinuation = options.continuation || '';
-                return collectionObjRaw.readFeed(collectionId, requestContinuation, pageSize, function (err, response, responseContinuation) {
+                return collectionObjRaw.readFeed(resourceTypes.document, collectionId, requestContinuation, pageSize, function (err, response) {
                     if (callback) {
                         if (err) {
                             callback(err);
@@ -509,7 +515,7 @@ var getContext = (function docDbSetupContextObject() {
                 var pageSize = options.pageSize || 100;
                 var requestContinuation = options.continuation || '';
                 var enableScan = options.enableScan === true ? true : false;
-                return collectionObjRaw.query(collectionId, filterQuery, requestContinuation, pageSize, enableScan, function (err, response) {
+                return collectionObjRaw.query(resourceTypes.document, collectionId, filterQuery, requestContinuation, pageSize, enableScan, function (err, response) {
                     if (callback) {
                         if (err) {
                             callback(err);
@@ -570,7 +576,7 @@ var getContext = (function docDbSetupContextObject() {
                 }
 
                 var indexAction = options.indexAction || '';
-                return collectionObjRaw.create(collectionId, body, indexAction, function (err, response) {
+                return collectionObjRaw.create(resourceTypes.document, collectionId, body, indexAction, function (err, response) {
                     if (callback) {
                         if (err) {
                             callback(err);
@@ -620,7 +626,7 @@ var getContext = (function docDbSetupContextObject() {
 
                 var indexAction = options.indexAction || '';
                 var etag = options.etag || '';
-                return collectionObjRaw.replace(collectionId, documentId, document, etag, indexAction, function (err, response) {
+                return collectionObjRaw.replace(resourceTypes.document, collectionId, documentId, document, etag, indexAction, function (err, response) {
                     if (callback) {
                         if (err) {
                             callback(err);
@@ -664,7 +670,7 @@ var getContext = (function docDbSetupContextObject() {
                 }
 
                 var etag = options.etag || '';
-                return collectionObjRaw.deleteResource(collectionId, documentId, etag, function (err, response) {
+                return collectionObjRaw.deleteResource(resourceTypes.document, collectionId, documentId, etag, function (err, response) {
                     if (callback) {
                         if (err) {
                             callback(err);
@@ -710,12 +716,14 @@ var getContext = (function docDbSetupContextObject() {
                 }
 
                 var ifNoneMatch = options.ifNoneMatch || '';
-                return collectionObjRaw.read(documentId, attachmentId, ifNoneMatch, function (err, response) {
+                return collectionObjRaw.read(resourceTypes.attachment, documentId, attachmentId, ifNoneMatch, function (err, response) {
                     if (callback) {
                         if (err) {
                             callback(err);
+                        } else if (response.options.notModified) {
+                            callback(undefined, undefined, response.options);
                         } else {
-                            callback(undefined, JSON.parse(response.body));
+                            callback(undefined, JSON.parse(response.body), response.options);
                         }
                     } else {
                         if (err) {
@@ -754,13 +762,12 @@ var getContext = (function docDbSetupContextObject() {
 
                 var pageSize = options.pageSize || 100;
                 var requestContinuation = options.continuation || '';
-                return collectionObjRaw.readFeed(documentId, requestContinuation, pageSize, function (err, response, responseContinuation) {
+                return collectionObjRaw.readFeed(resourceTypes.attachment, documentId, requestContinuation, pageSize, function (err, response) {
                     if (callback) {
                         if (err) {
                             callback(err);
                         } else {
-                            var responseOptions = { continuation: responseContinuation };
-                            callback(undefined, JSON.parse(response.body).Attachments, responseOptions);
+                            callback(undefined, JSON.parse(response.body).Attachments, response.options);
                         }
                     } else {
                         if (err) {
@@ -805,7 +812,7 @@ var getContext = (function docDbSetupContextObject() {
                 var pageSize = options.pageSize || 100;
                 var requestContinuation = options.continuation || '';
                 var enableScan = options.enableScan === true ? true : false;
-                return collectionObjRaw.query(documentId, filterQuery, requestContinuation, pageSize, enableScan, function (err, response) {
+                return collectionObjRaw.query(resourceTypes.attachment, documentId, filterQuery, requestContinuation, pageSize, enableScan, function (err, response) {
                     if (callback) {
                         if (err) {
                             callback(err);
@@ -854,7 +861,7 @@ var getContext = (function docDbSetupContextObject() {
                 }
 
                 var indexAction = options.indexAction || '';
-                return collectionObjRaw.create(documentId, body, indexAction, function (err, response) {
+                return collectionObjRaw.create(resourceTypes.attachment, documentId, body, indexAction, function (err, response) {
                     if (callback) {
                         if (err) {
                             callback(err);
@@ -904,7 +911,7 @@ var getContext = (function docDbSetupContextObject() {
 
                 var indexAction = options.indexAction || '';
                 var etag = options.etag || '';
-                return collectionObjRaw.replace(documentId, attachmentId, attachment, etag, indexAction, function (err, response) {
+                return collectionObjRaw.replace(resourceTypes.attachment, documentId, attachmentId, attachment, etag, indexAction, function (err, response) {
                     if (callback) {
                         if (err) {
                             callback(err);
@@ -948,7 +955,7 @@ var getContext = (function docDbSetupContextObject() {
                 }
 
                 var etag = options.etag || '';
-                return collectionObjRaw.deleteResource(documentId, attachmentId, etag, function (err) {
+                return collectionObjRaw.deleteResource(resourceTypes.attachment, documentId, attachmentId, etag, function (err) {
                     if (callback) {
                         if (err) {
                             callback(err);
@@ -1038,6 +1045,7 @@ var getContext = (function docDbSetupContextObject() {
 * @param {Object} options                                   -         Information associated with the response to the operation.
 * @param {string} options.currentCollectionSizeInMB         -         Comma delimited string containing the collection's current quota metrics (storage, number of stored procedure, triggers and UDFs) after completion of the operation.
 * @param {string} options.maxCollectionSizeInMB             -         Comma delimited string containing the collection's maximum quota metrics (storage, number of stored procedure, triggers and UDFs).
+* @param {Boolean} [notModified]                            -         Set to true if the requested resource has not been modified compared to the provided ETag in the ifNoneMatch parameter for a read request.
 * @param {Object}
 * @memberof Collection
 */
