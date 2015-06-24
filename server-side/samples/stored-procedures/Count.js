@@ -27,7 +27,7 @@ function count(filterQuery, continuationToken) {
         // in this case we set the response to current continuation token, 
         // and the client will run this script again starting from this continuation.
         // When the client calls this script 1st time, is passes empty continuation token.
-        if (result > maxResult || !query(responseOptions)) {
+        if (result >= maxResult || !query(responseOptions)) {
             setBody(nextContinuationToken);
         }
     }
