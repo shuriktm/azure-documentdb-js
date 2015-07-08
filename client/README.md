@@ -6,7 +6,7 @@ DocumentDB is a purpose built NoSQL JSON document database designed for modern m
 
 ```javascript
     var host = (hostendpoint); 
-    var resourceToken = {};
+    var resourceTokens = {};
     resourceTokens[(collection._rid)] = (resourceToken); // Add the collection _rid (NOT the Collection Id but the internal resource id) and resourceToken for read/write on the collection
 
     var collectionUrl = (collectionUrl); // Add the collection self-link
