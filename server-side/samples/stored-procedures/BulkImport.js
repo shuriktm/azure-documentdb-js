@@ -17,6 +17,7 @@ function bulkImport(docs) {
     var docsLength = docs.length;
     if (docsLength == 0) {
         getContext().getResponse().setBody(0);
+        return;
     }
 
     // Call the CRUD API to create a document.
