@@ -1012,7 +1012,7 @@ var getContext = (function docDbSetupContextObject() {
  * @property {string} indexAction.default                    -         use the default indexing policy specified for this collection
  * @property {string} indexAction.include                    -         include this document in the index
  * @property {string} indexAction.exclude                    -         exclude this document from the index
- * @property {string} [etag]                                 -         <p>The entity tag associated with the resource.<br/>This is matched with the persisted resource before deletion.</p>
+ * @property {string} [etag]                                 -         <p>The entity tag associated with the resource.<br/>This is matched with the persisted resource before replacement.</p>
  * @memberof Collection
  *
  */
