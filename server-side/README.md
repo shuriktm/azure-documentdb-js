@@ -4,6 +4,6 @@ When building server-side logic in Stored Procedures, Triggers, UDFs etc. it is 
 
 In the JS file you are working on, provide the following path to the file explicitly in comments.
 ```xml
-    <reference group="Generic" />
-    <reference path="C:\Program Files (x86)\Microsoft Visual Studio 12.0\JavaScript\References\DocDbWrapperScript.js" />
+    /// <reference group="Generic" />
+    /// <reference path="C:\Program Files (x86)\Microsoft Visual Studio 12.0\JavaScript\References\DocDbWrapperScript.js" />
 ```
