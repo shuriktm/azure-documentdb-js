@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><p><h1>Microsoft Azure DocumentDB SDK: Javascript Client</h1></p>
+<p>DocumentDB is a purpose built NoSQL JSON document database designed for modern mobile and web applications. DocumentDB supports rich queries over JSON data as well as, transactional execution of JavaScript based application logic. DocumentDB is built with a deep commitment to the JSON data model enabling it to offer differentiated query and data processing capabilities that scale to meet the needs of the most demanding modern applications.</p>
+<h2>Hello world example code</h2><pre class="prettyprint source"><code>var host = (&lt;hostendpoint>); 
+var resourceTokens = {};
+resourceTokens[(collection._rid)] = (&lt;resourcetoken>); 
+
+var client = DocumentDB.createClient(host, {
+    resourceTokens: resourceTokens
+});
+
+var documentDefinition = {
+    id: &quot;Hello world document&quot;,
+    content: &quot;Hello World!&quot;
+};
+
+//this url can be in the old format of dbs/tyhbAA==/colls/tyhbAN053QA=/
+//or in the newer format of dbs/YourDbId/colls/YourCollId
+var collectionUrl = ('dbs/MyDatabaseId/colls/MyCollectionId');    
+client.createDocument(collectionUrl, documentDefinition, function(err, createdDocument) {
+    if (err) {
+        throw err;
+    }
+
+    console.log('result', createdDocument.content);
+});</code></pre><p><h2>Instructions</h2></p>
+<ul>
+<li><p>Replace <hostendpoint> with the value of your DocumentDB account endpoint, available in the <a href="portal.azure.com">Azure Management Portal</a></p>
+</li>
+<li><p>Replace <collection_rid> with the value of the Collection _rid. Note, this is the internal _rid, not the id you gave the collection when creating it.</p>
+</li>
+<li><p>Replace <resourcetoken> with a valid permission token. </p>
+<p>By design, the JavaScript client SDK does not expose the capability to connect to DocumentDB using the master key as you might do when using the Node.js SDK. This is because you should never distribute the master key for your account to a client device. This is very dangerous. 
+Instead the JavaScript client SDK uses DocumentDB users & permissions with time based permission tokens. Using these tokens does not expose your DocumentDB account and allows you to limit what each user is able to do. </p>
+
+<p>To get a valid permission token you will need to create a user and permission server that uses the master key to connect to DocumentDB, generates and returns a token which can then be used from the JavaScript client SDK. An example of such a permission server can be found at <a href="https://github.com/Azure/azure-documentdb-js/tree/master/client/samples/Sample%20Persmission%20Server">Sample Permission Server</a></p></li>
+</ul>
+<p><h3>The completed code sample should resemble something like this:</h3></p>
+<pre class="prettyprint source"><code>var host = &quot;https://foo.documents.azure.com:443&quot;;
+var coll_rid = &quot;Pa0wAKPRZQA=&quot;;
+var token = &quot;type=resource&ver=1&sig=WaOXNCJaZ7Z7obf74i48Yg==;Dbb5bXDnm5ou0rpAUyifsFR5VNIsfSTeuad81P7zC7ytJtSwLCLnw9ne99vuIH8/giBsYIrqtXE5PYDs2idLfdJ4+K3bfT8BJgWqdgIuIEE/nvVpdEQ85y1azPXO7F+wXwBzK4eH2wQ0yMudy+petUdnN1GR3VJNsuNTZ1j+mnLLT/FLpFjWLVyI2dTLe7KHM0FvnczVZmT9wGJV8rUMjgjV9oG552DAev9exPGnj4E=&quot;;
+
+var resourceTokens = {};
+resourceTokens[coll_rid] = token; 
+
+var client = DocumentDB.createClient(host, {
+    resourceTokens: resourceTokens
+});
+
+var documentDefinition = {
+    id: &quot;Hello world document&quot;,
+    content: &quot;Hello World!&quot;
+};
+
+//this url can be in the old format of dbs/tyhbAA==/colls/tyhbAN053QA=/
+//or in the newer format of dbs/YourDbId/colls/YourCollId
+var collectionUrl = ('dbs/MyDatabaseId/colls/MyCollectionId');    
+client.createDocument(collectionUrl, documentDefinition, function(err, createdDocument) {
+    if (err) {
+        throw err;
+    }
+
+    console.log('result', createdDocument.content);
+});</code></pre></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="DocumentClient.html">DocumentClient</a></li><li><a href="QueryIterator.html">QueryIterator</a></li></ul><h3>Global</h3><ul><li><a href="global.html#ConnectionPolicy">ConnectionPolicy</a></li><li><a href="global.html#ConsistencyLevel">ConsistencyLevel</a></li><li><a href="global.html#DatabaseAccount">DatabaseAccount</a></li><li><a href="global.html#IndexingMode">IndexingMode</a></li><li><a href="global.html#IndexKind">IndexKind</a></li><li><a href="global.html#MediaReadMode">MediaReadMode</a></li><li><a href="global.html#PermissionMode">PermissionMode</a></li><li><a href="global.html#TriggerOperation">TriggerOperation</a></li><li><a href="global.html#TriggerType">TriggerType</a></li><li><a href="global.html#UserDefinedFunctionType">UserDefinedFunctionType</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.2</a> on Wed Sep 09 2015 10:38:06 GMT-0700 (Pacific Daylight Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
