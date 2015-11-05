@@ -2,6 +2,8 @@
 
 DocumentDB is a purpose built NoSQL JSON document database designed for modern mobile and web applications. DocumentDB supports rich queries over JSON data as well as, transactional execution of JavaScript based application logic. DocumentDB is built with a deep commitment to the JSON data model enabling it to offer differentiated query and data processing capabilities that scale to meet the needs of the most demanding modern applications.
 
+*Note: The Javascript Client SDK is intended for mobile scenarios. You will run in to CORS issues when attempting to use it from a browser.*
+
 ## Hello world example code
 
     var host = (<hostendpoint>); 
