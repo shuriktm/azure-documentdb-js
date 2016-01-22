@@ -40,7 +40,8 @@ DocumentDB is a purpose built NoSQL JSON document database designed for modern m
    	By design, the JavaScript client SDK does not expose the capability to connect to DocumentDB using the master key as you might do when using the Node.js SDK. This is because you should never distribute the master key for your account to a client device. This is very dangerous. 
    	Instead the JavaScript client SDK uses DocumentDB users & permissions with time based permission tokens. Using these tokens does not expose your DocumentDB account and allows you to limit what each user is able to do. 
 
-   	To get a valid permission token you will need to create a user and permission server that uses the master key to connect to DocumentDB, generates and returns a token which can then be used from the JavaScript client SDK. An example of such a permission server can be found at [Sample Permission Server](https://github.com/Azure/azure-documentdb-js/tree/master/client/samples/Sample%20Persmission%20Server)  
+   	To get a valid permission token you will need to create a user and permission server that uses the master key to connect to DocumentDB, generates and returns a token which can then be used from the JavaScript client SDK. An example of such a permission server can be found at [Sample Permission Server](https://github.com/Azure/azure-documentdb-js/tree/master/samples/Sample%20Persmission%20Server)  
+   	
 
 ###The completed code sample should resemble something like this:
 
